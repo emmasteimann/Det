@@ -33,11 +33,13 @@ def index():
         password = request.form.get("password")
         res = User.query.filter_by(email=email).first()
         if res:
-            if res.password == password:
+            if res.password == password and not res.is_logged:
                 session["username"] = res.username
+                res.is_logged=True
+                db.session.commit()
                 return render_template('index.html',username=session["username"],chatrooms=chatrooms)
             else:
-                return render_template("error.html",error=f'The password for account with the email {email} is wrong! please try again')
+                return render_template("error.html",error=f'Already logged in or invalid credentials')
         else:
             return render_template("error.html",error= f'There is no account with the user name {username}')
 
@@ -58,6 +60,9 @@ def signup():
 @app.route("/signout")
 def signout():
     session.pop('username',None)
+    res = User.query.filter_by(username=session["username"]).first()
+    res.is_logged=False
+    db.session.commit()
     return redirect("/")
 
 @app.route("/newchat",methods=["POST"])

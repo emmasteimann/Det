@@ -11,6 +11,7 @@ class User(db.Model):
     email = db.Column(db.String, nullable=False)
     username = db.Column(db.String, nullable=False)
     password = db.Column(db.String, nullable=False)
+    is_logged = db.Column(db.Boolean, nullable=False)
 
 class ChatRoom(db.Model):
     __tablename__ = "chatrooms"
