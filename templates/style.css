@@ -1,0 +1,15 @@
+.noPass{
+    animation: noPass 2s;
+}
+
+@keyframes noPass{
+    0%{
+        display:block;
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+        display: none;
+        height: 0px;
+    }
+}

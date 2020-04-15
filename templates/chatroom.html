@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    {{chat.name}}
+{% endblock %}
+
+
+{% block body %}
+<div style="margin-top:2vh" class="row">
+    <div class="col-4">    <a style="float:left" href="/" class="btn btn-primary"><</a> </div>
+    <div class="col-4">{{chat.name}}</div>
+    <div class="col-4">    <a style="float:right" href="/signout" class="btn btn-primary">Sign out</a> <pre id="username" data-user={{username}} style="float:right; margin-top:1vh;">Logged in as: {{username}}  </pre></div>
+    <div style="width:90vw;height:87vh">
+        <div style="margin-top:2vh" class="row">
+          <div data-chatid="{{chat.id}}" style="padding-left:5vw;height:80vh;width:85vw;overflow-y: scroll;" id="messages">
+            
+          </div>
+        </div>
+        <div>
+          <div id="newPar" class="fixed-bottom" style="padding-bottom:60px; padding-left:30px;color:blue"></div>
+          <div class="fixed-bottom input-group mt-auto p-2">
+              <input type="text" class="form-control" placeholder="Enter message here..." aria-label="text" id="message" aria-describedby="send">
+              <div class="input-group-append">
+                <span type="button" class="btn btn-outline-primary input-group-text" id="send">Send</span>
+              </div>
+            </div>
+          </div>
+      </div>
+</div>
+<script src="{{ url_for('static', filename='chatroom.js') }}"></script>
+{% endblock %}
+    

@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+
+{% block title%}
+Home Page
+{% endblock  %}
+
+{% block body%}
+<div style="margin-top:2vh" class="row">
+    <div class="col-6">    <p> Hello, {{username}}</p> </div>
+    <div class="col-6">    <a style="float:right" href="signout" class="btn btn-primary">Sign out</a> </div>
+    <div style="width:90vw;height:90vh"class="jumbotron">
+        <div style="margin-top:2vh" class="row">
+            <div class="col-6">    <h2>Chat Rooms</h2> </div>
+            <div class="col-6">    <button type="button" style="float:right; font-size:20px;" data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-outline-success">+</button> </div>
+        </div>
+        <div class="modal-footer"></div>
+        {% for chat in chatrooms %}
+          <h4><a class="chatRoom" data-chatid={{chat.id}} href='chat/{{chat.id}}' >{{chat.name}}</a></h3>
+        {% endfor %}
+          
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Create Chatroom</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/newchat" method="POST">
+            <div class="form-group">
+                <label for="chatroomName">Name</label>
+                <input type="text" name="chatname" class="form-control" id="chatroomName" aria-describedby="chatroomName" placeholder="Enter chat room name">
+            </div>
+            <div class="form-group" id="passIn">
+                <label for="chatroomPass">Password</label>
+                <input name="password" type="password" class="form-control" id="chatroomPass" placeholder="Password">
+            </div>
+            <div class="form-check">
+                <input name="is_public" type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Public</label>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Create Room</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="{{ url_for('static', filename='index.js') }}"></script>
+{% endblock  %}
