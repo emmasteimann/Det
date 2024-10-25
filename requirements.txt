@@ -2,4 +2,6 @@ Flask
 Flask-Session
 psycopg2-binary
 SQLAlchemy
-Flask-SocketIO
+Flask-SocketIO==5.4.1
+python-engineio==4.10.1
+python-socketio==5.11.4
