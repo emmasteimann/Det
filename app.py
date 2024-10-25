@@ -86,7 +86,8 @@ def chat(id):
 @socketio.on("join room")
 def join(data):
     join_room(data["room"])
-    chat = ChatRoom.query.get(data["room"])
+    chat = db.session.scalars(db.select(ChatRoom).where(ChatRoom.id == data["room"])).first()
+    #db.session.query(ChatRoom).get(data["room"]) #ChatRoom.query.filter_by(data["room"])
     emit('newMessage',{"message":session["username"] + ' has entered the room.'}, room=data["room"])
 
 @socketio.on("message sent")
